@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>baoyu 内容技能 · 风格与布局对照表</title>
+  <style>
+    :root {
+      --bg: #f7f6f2;
+      --card: #ffffff;
+      --text: #1c1c1a;
+      --muted: #5c5c57;
+      --line: #e4e2da;
+      --accent: #0f6e56;
+      --chip: #e8f5f0;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: "SF Pro Text", "PingFang SC", "Hiragino Sans GB", sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.5;
+    }
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      background: rgba(247,246,242,.92);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--line);
+      padding: 16px 24px;
+    }
+    header h1 { margin: 0 0 4px; font-size: 22px; font-weight: 650; }
+    header p { margin: 0; color: var(--muted); font-size: 13px; }
+    nav {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 12px;
+    }
+    nav a {
+      text-decoration: none;
+      color: var(--accent);
+      background: var(--chip);
+      padding: 4px 10px;
+      border-radius: 999px;
+      font-size: 12px;
+    }
+    main { max-width: 1280px; margin: 0 auto; padding: 20px 24px 64px; }
+    section { margin-bottom: 40px; }
+    h2 {
+      font-size: 18px;
+      margin: 0 0 6px;
+      padding-bottom: 8px;
+      border-bottom: 1px solid var(--line);
+    }
+    .howto {
+      color: var(--muted);
+      font-size: 13px;
+      margin: 0 0 14px;
+      font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    }
+    .note {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      padding: 12px 14px;
+      font-size: 13px;
+      color: var(--muted);
+      margin-bottom: 16px;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 12px;
+    }
+    .card {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+    .card img {
+      width: 100%;
+      aspect-ratio: 4 / 3;
+      object-fit: cover;
+      background: #eee;
+      display: block;
+    }
+    .card .meta { padding: 10px 12px 12px; }
+    .card .name {
+      font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--accent);
+    }
+    .card .desc { font-size: 12px; color: var(--muted); margin-top: 2px; }
+    .missing {
+      aspect-ratio: 4 / 3;
+      display: grid;
+      place-items: center;
+      color: var(--muted);
+      font-size: 12px;
+      background: #f0efe8;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      overflow: hidden;
+      font-size: 13px;
+    }
+    th, td {
+      border-bottom: 1px solid var(--line);
+      padding: 10px 12px;
+      text-align: left;
+      vertical-align: top;
+    }
+    th { background: #f0efe8; font-weight: 600; }
+    tr:last-child td { border-bottom: none; }
+    code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+      font-size: 12px;
+      background: #f0efe8;
+      padding: 1px 5px;
+      border-radius: 4px;
+    }
+    .param-list {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      font-size: 12px;
+      color: var(--muted);
+      line-height: 1.45;
+    }
+    .param-list li code {
+      margin-right: 4px;
+    }
+    .param-list .zh {
+      color: var(--text);
+    }
+    footer {
+      color: var(--muted);
+      font-size: 12px;
+      margin-top: 8px;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>baoyu 内容技能 · 风格与布局对照表</h1>
+    <p>样例图来自 <a href="https://github.com/JimLiu/baoyu-skills/blob/main/README.zh.md">JimLiu/baoyu-skills README.zh.md</a> · 出图默认走 FoxCode</p>
+    <nav>
+      <a href="#xhs-style">小红书风格</a>
+      <a href="#xhs-layout">小红书布局</a>
+      <a href="#info-style">信息图风格</a>
+      <a href="#info-layout">信息图布局</a>
+      <a href="#slide">幻灯片</a>
+      <a href="#article">文章配图</a>
+      <a href="#cover">封面预设</a>
+      <a href="#comic">漫画布局</a>
+      <a href="#how">如何指定</a>
+    </nav>
+  </header>
+
+  <main>
+    <div class="note" id="how">
+      <strong>如何指定：</strong>
+      在 Cursor 里直接说技能 + 参数，例如
+      「用 baoyu 小红书，风格 <code>notion</code>，布局 <code>dense</code>」或
+      「信息图 <code>--style technical-schematic --layout funnel</code>」。
+      不指定时会按内容自动推荐。出图默认 FoxCode（<code>gpt-image</code>）。
+    </div>
+
+    <section id="xhs-style">
+      <h2>1. 小红书 · 视觉风格（baoyu-xhs-images）</h2>
+      <p class="howto">指定：--style &lt;name&gt;　例：风格 notion</p>
+      <div class="grid" id="g-xhs-style"></div>
+    </section>
+
+    <section id="xhs-layout">
+      <h2>2. 小红书 · 布局（baoyu-xhs-images）</h2>
+      <p class="howto">指定：--layout &lt;name&gt;　可与风格自由组合</p>
+      <div class="grid" id="g-xhs-layout"></div>
+    </section>
+
+    <section id="info-style">
+      <h2>3. 信息图 · 视觉风格（baoyu-infographic）</h2>
+      <p class="howto">指定：--style &lt;name&gt;　默认 craft-handmade</p>
+      <div class="grid" id="g-info-style"></div>
+    </section>
+
+    <section id="info-layout">
+      <h2>4. 信息图 · 布局（baoyu-infographic）</h2>
+      <p class="howto">指定：--layout &lt;name&gt;</p>
+      <div class="grid" id="g-info-layout"></div>
+    </section>
+
+    <section id="slide">
+      <h2>5. 幻灯片风格（baoyu-slide-deck）</h2>
+      <p class="howto">指定：--style &lt;name&gt;</p>
+      <div class="grid" id="g-slide"></div>
+    </section>
+
+    <section id="article">
+      <h2>6. 文章配图风格（baoyu-article-illustrator）</h2>
+      <p class="howto">指定：--style &lt;name&gt;　可与 --type 组合</p>
+      <div class="grid" id="g-article"></div>
+    </section>
+
+    <section id="cover">
+      <h2>7. 封面风格预设（baoyu-cover-image）</h2>
+      <p class="howto">指定：--style &lt;preset&gt;　或分别指定 --palette / --rendering / --type</p>
+      <div class="grid" id="g-cover"></div>
+    </section>
+
+    <section id="comic">
+      <h2>8. 漫画布局（baoyu-comic）</h2>
+      <p class="howto">指定：--layout &lt;name&gt;　画风另用 --art / --tone</p>
+      <div class="grid" id="g-comic"></div>
+    </section>
+
+    <section>
+      <h2>指定方式速查</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>技能</th>
+            <th>Cursor 说法示例</th>
+            <th>关键参数</th>
+            <th>参数说明</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>小红书</td>
+            <td>用 baoyu 小红书，<code>--style notion</code>，<code>--layout dense</code></td>
+            <td><code>--style</code> <code>--layout</code> <code>--preset</code></td>
+            <td>
+              <ul class="param-list">
+                <li><code>--style</code><span class="zh">风格</span>：视觉美学，如 <code>--style notion</code> / <code>--style cute</code> / <code>--style chalkboard</code></li>
+                <li><code>--layout</code><span class="zh">布局</span>：信息密度与结构，如 <code>--layout dense</code> / <code>--layout list</code> / <code>--layout flow</code></li>
+                <li><code>--preset</code><span class="zh">预设</span>：风格+布局打包，如 <code>--preset knowledge-card</code></li>
+              </ul>
+            </td>
+          </tr>
+          <tr>
+            <td>信息图</td>
+            <td>做信息图，<code>--style technical-schematic</code>，<code>--layout funnel</code></td>
+            <td><code>--style</code> <code>--layout</code> <code>--aspect</code></td>
+            <td>
+              <ul class="param-list">
+                <li><code>--style</code><span class="zh">风格</span>：视觉美学，如 <code>--style technical-schematic</code> / <code>--style craft-handmade</code></li>
+                <li><code>--layout</code><span class="zh">布局</span>：信息结构，如 <code>--layout funnel</code> / <code>--layout iceberg</code> / <code>--layout bento-grid</code></li>
+                <li><code>--aspect</code><span class="zh">画幅</span>：比例，如 <code>--aspect landscape</code> / <code>--aspect portrait</code> / <code>--aspect 3:4</code></li>
+              </ul>
+            </td>
+          </tr>
+          <tr>
+            <td>封面</td>
+            <td>封面 <code>--palette warm</code> + <code>--rendering flat-vector</code>，或 <code>--style blueprint</code></td>
+            <td><code>--style</code> <code>--palette</code> <code>--rendering</code> <code>--type</code></td>
+            <td>
+              <ul class="param-list">
+                <li><code>--style</code><span class="zh">预设</span>：色板+渲染简称，如 <code>--style blueprint</code></li>
+                <li><code>--palette</code><span class="zh">色板</span>：配色，如 <code>--palette warm</code> / <code>--palette cool</code> / <code>--palette mono</code></li>
+                <li><code>--rendering</code><span class="zh">渲染</span>：画法，如 <code>--rendering flat-vector</code> / <code>--rendering hand-drawn</code></li>
+                <li><code>--type</code><span class="zh">类型</span>：构图类型，如 <code>--type hero</code> / <code>--type conceptual</code> / <code>--type typography</code></li>
+              </ul>
+            </td>
+          </tr>
+          <tr>
+            <td>幻灯片</td>
+            <td>做 PPT，<code>--style sketch-notes</code></td>
+            <td><code>--style</code></td>
+            <td>
+              <ul class="param-list">
+                <li><code>--style</code><span class="zh">风格</span>：整套幻灯片视觉预设，如 <code>--style sketch-notes</code> / <code>--style blueprint</code> / <code>--style corporate</code></li>
+              </ul>
+            </td>
+          </tr>
+          <tr>
+            <td>文章配图</td>
+            <td>给文章配图，<code>--type infographic</code>，<code>--style blueprint</code></td>
+            <td><code>--type</code> <code>--style</code> <code>--preset</code></td>
+            <td>
+              <ul class="param-list">
+                <li><code>--type</code><span class="zh">类型</span>：信息结构，如 <code>--type infographic</code> / <code>--type flowchart</code> / <code>--type comparison</code></li>
+                <li><code>--style</code><span class="zh">风格</span>：视觉美学，如 <code>--style blueprint</code> / <code>--style notion</code> / <code>--style watercolor</code></li>
+                <li><code>--preset</code><span class="zh">预设</span>：类型+风格打包，如 <code>--preset tech-explainer</code></li>
+              </ul>
+            </td>
+          </tr>
+          <tr>
+            <td>漫画</td>
+            <td>知识漫画，<code>--art manga</code>，<code>--tone warm</code>，<code>--layout cinematic</code></td>
+            <td><code>--art</code> <code>--tone</code> <code>--layout</code> <code>--style</code></td>
+            <td>
+              <ul class="param-list">
+                <li><code>--art</code><span class="zh">画风</span>：线条与造型，如 <code>--art manga</code> / <code>--art realistic</code> / <code>--art ink-brush</code></li>
+                <li><code>--tone</code><span class="zh">基调</span>：情绪氛围，如 <code>--tone warm</code> / <code>--tone dramatic</code> / <code>--tone action</code></li>
+                <li><code>--layout</code><span class="zh">布局</span>：分镜结构，如 <code>--layout cinematic</code></li>
+                <li><code>--style</code><span class="zh">预设</span>：画风+基调打包，如 <code>--style ohmsha</code> / <code>--style wuxia</code> / <code>--style shoujo</code></li>
+              </ul>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <p class="footer">本地样例目录：<code>output/baoyu-style-gallery/</code> · 源：baoyu-skills screenshots</p>
+    </section>
+  </main>
+
+  <script>
+    function card(dir, name, desc, missing) {
+      const img = missing
+        ? `<div class="missing">README 无样例图</div>`
+        : `<img src="${dir}/${name}.webp" alt="${name}" loading="lazy" />`;
+      return `<article class="card">${img}<div class="meta"><div class="name">${name}</div><div class="desc">${desc || ""}</div></div></article>`;
+    }
+
+    function fill(id, dir, items) {
+      document.getElementById(id).innerHTML = items
+        .map(([name, desc, missing]) => card(dir, name, desc, missing))
+        .join("");
+    }
+
+    fill("g-xhs-style", "xhs-styles", [
+      ["cute", "甜美可爱（默认）"],
+      ["fresh", "清新自然"],
+      ["warm", "温暖亲和"],
+      ["bold", "高冲击力"],
+      ["minimal", "极简克制"],
+      ["retro", "复古潮流"],
+      ["pop", "活力撞色"],
+      ["notion", "手绘线稿知性风"],
+      ["chalkboard", "黑板粉笔教学风"],
+      ["study-notes", "手写笔记风", true],
+      ["screen-print", "丝网印刷海报风", true],
+    ]);
+
+    fill("g-xhs-layout", "xhs-layouts", [
+      ["sparse", "稀疏 · 封面/金句"],
+      ["balanced", "均衡 · 常规内容"],
+      ["dense", "高密度知识卡"],
+      ["list", "清单/排行"],
+      ["comparison", "双栏对比"],
+      ["flow", "流程/时间线"],
+      ["mindmap", "思维导图", true],
+      ["quadrant", "四象限", true],
+    ]);
+
+    fill("g-info-style", "infographic-styles", [
+      ["craft-handmade", "手绘纸艺（默认）"],
+      ["claymation", "黏土定格"],
+      ["kawaii", "日系可爱"],
+      ["storybook-watercolor", "绘本水彩"],
+      ["chalkboard", "黑板粉笔"],
+      ["cyberpunk-neon", "赛博霓虹"],
+      ["bold-graphic", "漫画网点"],
+      ["aged-academia", "复古学术"],
+      ["corporate-memphis", "扁平矢量"],
+      ["technical-schematic", "工程蓝图"],
+      ["origami", "折纸几何"],
+      ["pixel-art", "像素复古"],
+      ["ui-wireframe", "界面线框"],
+      ["subway-map", "地铁线路图"],
+      ["ikea-manual", "宜家说明书"],
+      ["knolling", "俯视平铺"],
+      ["lego-brick", "乐高积木"],
+      ["pop-laboratory", "实验室网格", true],
+      ["morandi-journal", "莫兰迪手账", true],
+      ["retro-pop-grid", "复古波普", true],
+    ]);
+
+    fill("g-info-layout", "infographic-layouts", [
+      ["bridge", "问题→方案"],
+      ["circular-flow", "循环流程"],
+      ["comparison-table", "多维对比"],
+      ["do-dont", "正误对照"],
+      ["equation", "公式分解"],
+      ["feature-list", "功能要点"],
+      ["fishbone", "鱼骨根因"],
+      ["funnel", "漏斗转化"],
+      ["grid-cards", "卡片网格"],
+      ["iceberg", "冰山模型"],
+      ["journey-path", "旅程里程碑"],
+      ["layers-stack", "分层技术栈"],
+      ["mind-map", "思维导图"],
+      ["nested-circles", "嵌套范围"],
+      ["priority-quadrants", "四象限"],
+      ["pyramid", "层级金字塔"],
+      ["scale-balance", "利弊天平"],
+      ["timeline-horizontal", "横向时间线"],
+      ["tree-hierarchy", "树状层级"],
+      ["venn", "韦恩图"],
+    ]);
+
+    fill("g-slide", "slide-deck-styles", [
+      ["blueprint", "蓝图技术"],
+      ["chalkboard", "黑板教学"],
+      ["corporate", "商务提案"],
+      ["minimal", "极简简报"],
+      ["sketch-notes", "手绘笔记"],
+      ["watercolor", "水彩生活"],
+      ["dark-atmospheric", "暗色氛围"],
+      ["notion", "Notion 产品风"],
+      ["bold-editorial", "杂志编辑"],
+      ["editorial-infographic", "编辑信息图"],
+      ["fantasy-animation", "奇幻动画"],
+      ["intuition-machine", "技术文档风"],
+      ["pixel-art", "像素游戏"],
+      ["scientific", "科研医学"],
+      ["vector-illustration", "矢量插画"],
+      ["vintage", "复古历史"],
+    ]);
+
+    fill("g-article", "article-styles", [
+      ["notion", "知性线稿"],
+      ["elegant", "优雅编辑"],
+      ["warm", "温暖亲和"],
+      ["minimal", "极简"],
+      ["blueprint", "蓝图技术"],
+      ["watercolor", "水彩"],
+      ["editorial", "杂志"],
+      ["scientific", "科学示意"],
+    ]);
+
+    fill("g-cover", "cover-styles", [
+      ["blueprint", "蓝图"],
+      ["bold-editorial", "大胆编辑"],
+      ["chalkboard", "黑板"],
+      ["dark-atmospheric", "暗色"],
+      ["editorial-infographic", "编辑信息图"],
+      ["elegant", "优雅"],
+      ["fantasy-animation", "奇幻"],
+      ["flat-doodle", "扁平涂鸦"],
+      ["intuition-machine", "直觉机器"],
+      ["minimal", "极简"],
+      ["nature", "自然"],
+      ["notion", "Notion"],
+      ["pixel-art", "像素"],
+      ["playful", "玩趣"],
+      ["retro", "复古"],
+      ["sketch-notes", "手绘笔记"],
+      ["vector-illustration", "矢量"],
+      ["vintage", "怀旧"],
+      ["warm", "温暖"],
+      ["watercolor", "水彩"],
+    ]);
+
+    fill("g-comic", "comic-layouts", [
+      ["standard", "标准分镜"],
+      ["cinematic", "电影感"],
+      ["dense", "高密度"],
+      ["splash", "跨页大图"],
+      ["mixed", "混合"],
+      ["webtoon", "条漫"],
+    ]);
+  </script>
+</body>
+</html>
